@@ -14,10 +14,37 @@ const ContentTodo = () => {
     <>
       <div className="">
         <InputAdd inputRef={inputRef} onAddTodo={onAddTodo} />
-        <ListTodo
+        {/* <ListTodo
           todos={todos}
           onRemoveTodo={onRemoveTodo}
           onToggleTodo={onToggleTodo}
+        /> */}
+        <RenderList
+          items={todos}
+          render={(todo) => (
+            <div
+              className={`flex items-center justify-between p-2 border ${
+                todo.completed ? "line-through text-gray-500" : ""
+              }`}
+              key={todo.id}
+            >
+              <span>{todo.text}</span>
+              <div>
+                <input
+                  type="checkbox"
+                  className="mr-2 cursor-pointer"
+                  checked={todo.completed}
+                  onChange={() => onToggleTodo(todo.id)}
+                />
+                <button
+                  onClick={() => onRemoveTodo(todo.id)}
+                  className="p-2 text-sm font-medium text-white bg-red-500 rounded-lg"
+                >
+                  Remove
+                </button>
+              </div>
+            </div>
+          )}
         />
       </div>
     </>
@@ -29,8 +56,8 @@ const ListTodo: React.FC<ListTodoProps> = ({
   onRemoveTodo,
   onToggleTodo,
 }) => {
-  console.log(todos);
-  
+  // console.log(todos);
+
   return (
     <div className="mb-5">
       {todos &&
@@ -58,8 +85,22 @@ const ListTodo: React.FC<ListTodoProps> = ({
             </div>
           </div>
         ))}
-      {todos.length === 0 && <div className="font-bold text-red-400">Bạn không có bất kỳ Todo nào.</div>}
+      {todos.length === 0 && (
+        <div className="font-bold text-red-400">
+          Bạn không có bất kỳ Todo nào.
+        </div>
+      )}
     </div>
   );
+};
+
+const RenderList = <T,>({
+  items,
+  render,
+}: {
+  items: T[];
+  render: (item: T) => React.ReactNode;
+}) => {
+  return <div className="mb-5">{items.map((item) => render(item))}</div>;
 };
 export default ContentTodo;
