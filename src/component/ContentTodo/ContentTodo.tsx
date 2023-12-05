@@ -58,7 +58,7 @@ const ListTodo: React.FC<ListTodoProps> = ({
             </div>
           </div>
         ))}
-      {todos.length === 0 && <div className="font-bold text-red-400">You don't have any todo</div>}
+      {todos.length === 0 && <div className="font-bold text-red-400">Bạn không có bất kỳ Todo nào.</div>}
     </div>
   );
 };

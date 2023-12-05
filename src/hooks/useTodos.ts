@@ -52,7 +52,7 @@ export default function useTodos(
 
   const onAddTodo = () => {
     // Truy cập giá trị của ô input
-    if (inputRef?.current) {
+    if (inputRef?.current && inputRef.current.value) {
       dispatch({
         type: "ADD",
         text: inputRef.current.value,
@@ -60,6 +60,8 @@ export default function useTodos(
       inputRef.current.value = "";
       // Cập nhật localStorage sau khi thêm một công việc mới
       localStorage.setItem("todos", JSON.stringify(todos));
+    }else{
+      alert("Bạn cần nhập nội dung Todo vào ô input!")
     }
   };
 
